@@ -1,0 +1,2 @@
+# Python 3.14 (version used for verification); the 4.1 backend uses the standard library.
+# Three.js and fonts ship under griductive/gui/web/vendor with their licenses.
