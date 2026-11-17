@@ -1,0 +1,234 @@
+{
+  "schema_version": "1.0.0",
+  "puzzle_id": "fixture_4x4_ambiguous",
+  "grid_size": 4,
+  "cards": [
+    {
+      "cell_id": "A1",
+      "name": "Aaron",
+      "profession": "Baker",
+      "status": "CRIMINAL",
+      "clue": {
+        "clue_id": "clue_a1",
+        "type": "AT_MOST",
+        "region": {
+          "type": "NEIGHBORS",
+          "cell_id": "D1"
+        },
+        "k": 1
+      }
+    },
+    {
+      "cell_id": "B1",
+      "name": "Bella",
+      "profession": "Doctor",
+      "status": "INNOCENT",
+      "clue": {
+        "clue_id": "clue_b1",
+        "type": "AT_MOST",
+        "region": {
+          "type": "BOUNDARY"
+        },
+        "k": 9
+      }
+    },
+    {
+      "cell_id": "C1",
+      "name": "Caleb",
+      "profession": "Farmer",
+      "status": "INNOCENT",
+      "clue": {
+        "clue_id": "clue_c1",
+        "type": "SAME",
+        "cell_ids": [
+          "C1",
+          "B4"
+        ]
+      }
+    },
+    {
+      "cell_id": "D1",
+      "name": "Diana",
+      "profession": "Teacher",
+      "status": "CRIMINAL",
+      "clue": {
+        "clue_id": "clue_d1",
+        "type": "AT_LEAST",
+        "region": {
+          "type": "NEIGHBORS",
+          "cell_id": "D1"
+        },
+        "k": 0
+      }
+    },
+    {
+      "cell_id": "A2",
+      "name": "Ethan",
+      "profession": "Pilot",
+      "status": "INNOCENT",
+      "clue": {
+        "clue_id": "clue_a2",
+        "type": "DIFFERENT",
+        "cell_ids": [
+          "C1",
+          "B2"
+        ]
+      }
+    },
+    {
+      "cell_id": "B2",
+      "name": "Fiona",
+      "profession": "Guard",
+      "status": "CRIMINAL",
+      "clue": {
+        "clue_id": "clue_b2",
+        "type": "DIFFERENT",
+        "cell_ids": [
+          "A3",
+          "B3"
+        ]
+      }
+    },
+    {
+      "cell_id": "C2",
+      "name": "George",
+      "profession": "Cook",
+      "status": "INNOCENT",
+      "clue": {
+        "clue_id": "clue_c2",
+        "type": "DIFFERENT",
+        "cell_ids": [
+          "C1",
+          "B3"
+        ]
+      }
+    },
+    {
+      "cell_id": "D2",
+      "name": "Hannah",
+      "profession": "Judge",
+      "status": "CRIMINAL",
+      "clue": {
+        "clue_id": "clue_d2",
+        "type": "FACT",
+        "cell_id": "D4",
+        "status": "INNOCENT"
+      }
+    },
+    {
+      "cell_id": "A3",
+      "name": "Isaac",
+      "profession": "Singer",
+      "status": "INNOCENT",
+      "clue": {
+        "clue_id": "clue_a3",
+        "type": "FACT",
+        "cell_id": "C2",
+        "status": "INNOCENT"
+      }
+    },
+    {
+      "cell_id": "B3",
+      "name": "Julia",
+      "profession": "Painter",
+      "status": "CRIMINAL",
+      "clue": {
+        "clue_id": "clue_b3",
+        "type": "AT_LEAST",
+        "region": {
+          "type": "NEIGHBORS",
+          "cell_id": "D3"
+        },
+        "k": 0
+      }
+    },
+    {
+      "cell_id": "C3",
+      "name": "Kevin",
+      "profession": "Sailor",
+      "status": "CRIMINAL",
+      "clue": {
+        "clue_id": "clue_c3",
+        "type": "AT_MOST",
+        "region": {
+          "type": "NEIGHBORS",
+          "cell_id": "C3"
+        },
+        "k": 7
+      }
+    },
+    {
+      "cell_id": "D3",
+      "name": "Laura",
+      "profession": "Tailor",
+      "status": "INNOCENT",
+      "clue": {
+        "clue_id": "clue_d3",
+        "type": "AT_MOST",
+        "region": {
+          "type": "CORNERS"
+        },
+        "k": 3
+      }
+    },
+    {
+      "cell_id": "A4",
+      "name": "Mason",
+      "profession": "Miner",
+      "status": "CRIMINAL",
+      "clue": {
+        "clue_id": "clue_a4",
+        "type": "AT_LEAST",
+        "region": {
+          "type": "NEIGHBORS",
+          "cell_id": "A4"
+        },
+        "k": 1
+      }
+    },
+    {
+      "cell_id": "B4",
+      "name": "Nora",
+      "profession": "Clerk",
+      "status": "INNOCENT",
+      "clue": {
+        "clue_id": "clue_b4",
+        "type": "AT_MOST",
+        "region": {
+          "type": "NEIGHBORS",
+          "cell_id": "B4"
+        },
+        "k": 5
+      }
+    },
+    {
+      "cell_id": "C4",
+      "name": "Oliver",
+      "profession": "Hunter",
+      "status": "INNOCENT",
+      "clue": {
+        "clue_id": "clue_c4",
+        "type": "DIFFERENT",
+        "cell_ids": [
+          "A2",
+          "C3"
+        ]
+      }
+    },
+    {
+      "cell_id": "D4",
+      "name": "Paula",
+      "profession": "Nurse",
+      "status": "INNOCENT",
+      "clue": {
+        "clue_id": "clue_d4",
+        "type": "FACT",
+        "cell_id": "C2",
+        "status": "INNOCENT"
+      }
+    }
+  ],
+  "initial_revealed_cell_ids": [
+    "D2"
+  ]
+}

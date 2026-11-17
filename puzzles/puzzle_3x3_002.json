@@ -1,0 +1,153 @@
+{
+  "schema_version": "1.0.0",
+  "puzzle_id": "puzzle_3x3_002",
+  "grid_size": 3,
+  "cards": [
+    {
+      "cell_id": "A1",
+      "name": "Aaron",
+      "profession": "Baker",
+      "status": "INNOCENT",
+      "clue": {
+        "clue_id": "clue_a1",
+        "type": "EXACTLY",
+        "region": {
+          "type": "ROW",
+          "row": 1
+        },
+        "k": 0
+      }
+    },
+    {
+      "cell_id": "B1",
+      "name": "Bella",
+      "profession": "Doctor",
+      "status": "INNOCENT",
+      "clue": {
+        "clue_id": "clue_b1",
+        "type": "SAME",
+        "cell_ids": [
+          "B1",
+          "C2"
+        ]
+      }
+    },
+    {
+      "cell_id": "C1",
+      "name": "Caleb",
+      "profession": "Farmer",
+      "status": "INNOCENT",
+      "clue": {
+        "clue_id": "clue_c1",
+        "type": "EXACTLY",
+        "region": {
+          "type": "EXPLICIT",
+          "cell_ids": [
+            "A1",
+            "A2",
+            "C2"
+          ]
+        },
+        "k": 1
+      }
+    },
+    {
+      "cell_id": "A2",
+      "name": "Diana",
+      "profession": "Teacher",
+      "status": "CRIMINAL",
+      "clue": {
+        "clue_id": "clue_a2",
+        "type": "DIFFERENT",
+        "cell_ids": [
+          "B1",
+          "B3"
+        ]
+      }
+    },
+    {
+      "cell_id": "B2",
+      "name": "Ethan",
+      "profession": "Pilot",
+      "status": "INNOCENT",
+      "clue": {
+        "clue_id": "clue_b2",
+        "type": "SAME",
+        "cell_ids": [
+          "A1",
+          "C3"
+        ]
+      }
+    },
+    {
+      "cell_id": "C2",
+      "name": "Fiona",
+      "profession": "Guard",
+      "status": "INNOCENT",
+      "clue": {
+        "clue_id": "clue_c2",
+        "type": "AT_MOST",
+        "region": {
+          "type": "EXPLICIT",
+          "cell_ids": [
+            "A1",
+            "C1",
+            "C2"
+          ]
+        },
+        "k": 0
+      }
+    },
+    {
+      "cell_id": "A3",
+      "name": "George",
+      "profession": "Cook",
+      "status": "CRIMINAL",
+      "clue": {
+        "clue_id": "clue_a3",
+        "type": "EXACTLY",
+        "region": {
+          "type": "NEIGHBORS",
+          "cell_id": "A2"
+        },
+        "k": 2
+      }
+    },
+    {
+      "cell_id": "B3",
+      "name": "Hannah",
+      "profession": "Judge",
+      "status": "CRIMINAL",
+      "clue": {
+        "clue_id": "clue_b3",
+        "type": "EXACTLY",
+        "region": {
+          "type": "EXPLICIT",
+          "cell_ids": [
+            "A1",
+            "B1",
+            "B2"
+          ]
+        },
+        "k": 0
+      }
+    },
+    {
+      "cell_id": "C3",
+      "name": "Isaac",
+      "profession": "Singer",
+      "status": "INNOCENT",
+      "clue": {
+        "clue_id": "clue_c3",
+        "type": "EXACTLY",
+        "region": {
+          "type": "BOUNDARY"
+        },
+        "k": 3
+      }
+    }
+  ],
+  "initial_revealed_cell_ids": [
+    "C2"
+  ]
+}
