@@ -1,0 +1,40 @@
+# Python bytecode and caches
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+htmlcov/
+
+# Local virtual environments
+.venv/
+venv/
+env/
+
+# Temporary files and logs
+*.tmp
+*.temp
+*.log
+*.bak
+*.swp
+*.swo
+*~
+tmp/
+temp/
+
+# OS metadata
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Local assignment documents
+/AI - Project 2.pdf
+/AI_Project_2_Ban_dich_tieng_Viet.pdf
+/TEAM_CONVENTIONS.md
+/TEAM_CONVENTIONS_EN.md
+
+# Local SAT implementation notes
+/AI_LOG_SAT.md
+/GIAI_THICH_SAT.md
