@@ -1,0 +1,3 @@
+# Dependency cho kiểm thử/benchmark (4.5). Runner và test chỉ cần thư viện chuẩn.
+matplotlib>=3.8   # tùy chọn: biểu đồ chart_*.png trong summary
+pytest>=8         # tùy chọn: có thể chạy test bằng unittest có sẵn
