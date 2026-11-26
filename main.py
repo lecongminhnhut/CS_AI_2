@@ -27,7 +27,7 @@ def main() -> None:
         from griductive.gui.server import GriductiveServer
         from griductive.gui.team_session import load_cases
 
-        cases = load_cases(puzzle_directory)
+        cases = load_cases(puzzle_directory, fallback_directory=source / "benchmark" / "stress")
     except (ImportError, ValueError) as exc:
         parser.error(f"Team integration is not ready: {exc}. See Source/README.md.")
 

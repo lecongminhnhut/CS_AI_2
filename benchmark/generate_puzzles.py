@@ -35,7 +35,6 @@ SCHEMA_VERSION = "1.0.0"
 DEFAULT_RANDOM_SEED = 42
 PUZZLE_DIRECTORY = SOURCE_DIRECTORY / "puzzles"
 FIXTURE_DIRECTORY = SOURCE_DIRECTORY / "benchmark" / "fixtures"
-# 5×5 để riêng: GUI nạp mọi file trong puzzles/, mà SUPPORTED_GRID_SIZES mặc định chỉ có (3, 4).
 STRESS_DIRECTORY = SOURCE_DIRECTORY / "benchmark" / "stress"
 
 NAMES = ["Aaron", "Bella", "Caleb", "Diana", "Ethan", "Fiona", "George", "Hannah", "Isaac", "Julia",

@@ -17,10 +17,15 @@ def _data(record: Any) -> dict[str, Any]:
     return asdict(record) if is_dataclass(record) else dict(record)
 
 
-def load_cases(directory: Path) -> dict[str, dict[str, Any]]:
-    """Load team-schema puzzle JSON through the shared validation entry point."""
+def load_cases(directory: Path, *, fallback_directory: Path | None = None) -> dict[str, dict[str, Any]]:
+    """Validate the puzzle catalog, preferring the main directory for matching filenames."""
+    paths = sorted(directory.glob("*.json"))
+    if fallback_directory is not None:
+        primary_names = {path.name for path in paths}
+        paths.extend(path for path in sorted(fallback_directory.glob("*.json"))
+                     if path.name not in primary_names)
     cases = {}
-    for path in sorted(directory.glob("*.json")):
+    for path in paths:
         puzzle = models.load_puzzle(path)
         data = _data(puzzle)
         puzzle_id = data["puzzle_id"]

@@ -22,7 +22,7 @@ Nếu module nào còn thiếu, runner ghi lần chạy đó là `ERROR` kèm l�
 | File | Vai trò |
 | --- | --- |
 | `../puzzles/puzzle_3x3_00[1-5].json`, `puzzle_4x4_00[1-5].json` | Bộ chuẩn: nghiệm duy nhất, giải hết được bằng suy luận no-guess. GUI cũng nạp các file này. |
-| `stress/puzzle_5x5_00[1-2].json` | Ca stress 5×5. Để riêng vì GUI nạp mọi file trong `puzzles/`, mà `SUPPORTED_GRID_SIZES` mặc định chỉ có `(3, 4)`. |
+| `stress/puzzle_5x5_00[1-2].json` | Hai ca stress 5×5, cũng có trong menu chọn màn của game. |
 | `fixtures/fixture_3x3_stuck.json` | Toàn bộ clue có nghiệm duy nhất, nhưng suy luận bị STUCK sau 2 bước. |
 | `fixtures/fixture_4x4_ambiguous.json` | Toàn bộ clue có nhiều nghiệm, suy luận bị STUCK. |
 | `fixtures/fixture_3x3_inconsistent.json` | Clue mở ở bước 1 mâu thuẫn KB, kỳ vọng INCONSISTENT. |

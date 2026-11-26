@@ -9,6 +9,8 @@ py main.py
 
 Dùng `python main.py` nếu máy không có lệnh `py`. Trình duyệt mặc định mở ở [http://127.0.0.1:8000](http://127.0.0.1:8000). Có thể chọn cổng bằng `--port 8080` hoặc chạy với `--no-browser`. Nếu thiếu file chạy game hoặc puzzle, lệnh báo danh sách cần bổ sung trước khi khởi động server.
 
+Menu chọn màn có 5 màn 3×3, 5 màn 4×4 và 2 màn 5×5. Game tự nạp hai màn 5×5 từ `benchmark/stress/`.
+
 ## Nối phần của các thành viên
 
 Các đường dẫn bên dưới tính từ `Source/`, trừ những mục ghi rõ là ở thư mục gốc. Dùng chữ ký, schema và enum từ mục 14–16 của [TEAM_CONVENTIONS.md](../TEAM_CONVENTIONS.md).
