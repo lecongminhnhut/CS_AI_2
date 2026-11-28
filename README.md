@@ -1,70 +1,75 @@
-# Griductive · GUI và game (4.1)
+# Griductive Solver
 
-Khi nhóm đã bổ sung đủ module chạy game và puzzle theo schema `1.0.0`, chạy từ thư mục gốc bằng Python 3.14. GUI dùng Three.js và font đi kèm, không cần npm hay tải thư viện từ mạng.
+Đồ án 2 môn Nhập môn Trí tuệ nhân tạo (CSC14003). Griductive là trò chơi suy luận trên trình duyệt, trong đó người chơi xác định từng nhân vật là Criminal hoặc Innocent. Bộ giải SAT dùng thuật toán DPLL để kiểm tra kết luận dựa trên các manh mối đã mở và trạng thái đã biết. Mỗi kết luận được chứng minh sẽ lật một thẻ và đưa manh mối mới vào lượt suy luận tiếp theo.
+
+## Khởi chạy
+
+Mở terminal tại thư mục chứa `main.py`. Trong bản nộp đã giải nén, đây là thư mục `Source/`. Nhóm dùng Python 3.14. Chương trình và bộ kiểm thử chạy bằng thư viện chuẩn Python, còn Three.js, phông chữ và hình ảnh đi kèm trong `griductive/gui/web/`.
 
 ```sh
-cd Source
-py main.py
+python main.py
 ```
 
-Dùng `python main.py` nếu máy không có lệnh `py`. Trình duyệt mặc định mở ở [http://127.0.0.1:8000](http://127.0.0.1:8000). Có thể chọn cổng bằng `--port 8080` hoặc chạy với `--no-browser`. Nếu thiếu file chạy game hoặc puzzle, lệnh báo danh sách cần bổ sung trước khi khởi động server.
+Trên Windows, có thể dùng `py main.py` nếu máy có trình khởi chạy `py`. Chương trình tự mở `http://127.0.0.1:8000/` trong trình duyệt. Nếu tab chưa mở, truy cập trực tiếp địa chỉ này.
 
-Menu chọn màn có 5 màn 3×3, 5 màn 4×4 và 2 màn 5×5. Game tự nạp hai màn 5×5 từ `benchmark/stress/`.
+Nếu cổng 8000 đang được dùng, chạy `python main.py --port 8080 --no-browser` rồi mở `http://127.0.0.1:8080/`. Nhấn Ctrl+C trong terminal để dừng máy chủ.
 
-## Nối phần của các thành viên
+## Chơi và xem lời giải
 
-Các đường dẫn bên dưới tính từ `Source/`, trừ những mục ghi rõ là ở thư mục gốc. Dùng chữ ký, schema và enum từ mục 14–16 của [TEAM_CONVENTIONS.md](../TEAM_CONVENTIONS.md).
+1. Chọn màn trong Case library. Danh sách có 5 màn 3×3, 5 màn 4×4 và 2 màn 5×5.
+2. Chọn thẻ đã mở để đọc manh mối trong Evidence. Bàn cờ tô sáng các ô được nhắc tới. Chọn một cụm từ gạch dưới để chỉ xem các ô tương ứng với cụm đó.
+3. Chọn một thẻ úp, sau đó chọn Innocent hoặc Criminal. Thẻ lật khi dữ kiện đủ để chứng minh lựa chọn. Nếu cả hai kết luận vẫn có thể đúng, chương trình trả `NOT_PROVABLE`. Nếu dữ kiện chứng minh kết luận ngược lại, chương trình trả `CONTRADICTED`. Thẻ giữ nguyên trong cả hai trường hợp.
 
-### 4.1 · GUI và game
+Hint đánh dấu các manh mối đã mở. Bấm tiếp Reveal để xác định ô có thể suy luận ở lượt hiện tại. Thẻ chỉ lật sau khi người chơi gửi kết luận và chương trình chấp nhận.
 
-Các file chính đã có. Người phụ trách cập nhật khi nối các phần của nhóm.
+Auto solve tự thực hiện từng bước suy luận. Dùng Pause để tạm dừng và Restart case để đưa màn chơi về trạng thái ban đầu.
 
-| File | Công việc |
-| --- | --- |
-| `main.py` | Kiểm tra các file tích hợp, nạp puzzle, khởi chạy server và mở trình duyệt. |
-| `griductive/engine.py` | `GameEngine` giữ puzzle riêng, trả `get_public_state()`, kiểm tra `submit_verdict()` và xử lý `restart()`. |
-| `griductive/gui/server.py` | Phục vụ giao diện và điều phối API theo phiên chơi. |
-| `griductive/gui/team_session.py` | Nối engine và agent với GUI, ghi trace từ các verdict được chấp nhận. |
-| `griductive/gui/web/` | Bố cục trong `index.html` và `style.css`, thao tác chơi trong `app.js`, hiệu ứng Three.js trong `board3d.js` và chân dung trong `portraits.js`. |
-| `README.md`, `requirements.txt` | Tổng hợp hướng dẫn chạy và dependency của sản phẩm. |
+Deduction log hiển thị thống kê SAT và các lượt suy luận được chấp nhận. Mở từng lượt để xem các manh mối đang dùng, truy vấn SAT, kết luận và manh mối vừa lật. Nhật ký dạng JSON Lines có tại `/api/trace` trong cùng phiên trình duyệt.
 
-Mục 4.1 cũng phụ trách `.gitignore` và `.gitattributes` ở thư mục gốc.
+Để xem các bước suy luận của một màn trong terminal, chạy trực tiếp mô-đun agent.
 
-### 4.2 · CNF và dữ liệu chung
+```sh
+python -m griductive.agent puzzles/puzzle_3x3_001.json
+```
 
-| File | Công việc |
-| --- | --- |
-| `griductive/models.py` | Bổ sung schema và enum dùng chung, gồm `Puzzle`, `PublicState`, `SatResult`, `VerdictResult` và các kiểu ở mục 14. Cài `load_puzzle()` và các hàm validation. |
-| `griductive/regions.py` | Bổ sung hàm xử lý tọa độ, `resolve_region()` và `get_referenced_cell_ids()`. Hỗ trợ `CORNERS` và `BOUNDARY` để GUI tô sáng đúng ô. |
-| `griductive/semantics.py` | Cài `evaluate_clue()` để kiểm tra trực tiếp clue trên một assignment đầy đủ. |
-| `griductive/encoder.py` | Cài `encode()`, `encode_clue()`, `build_variable_map()` và bộ cấp phát biến phụ. `encode()` nhận `PublicState` và trả `EncodedKB`. |
+## Kiểm thử và thực nghiệm
 
-`griductive/__init__.py` đã có file khởi tạo. Mục 4.2 phụ trách file này và phối hợp duy trì `TEAM_CONVENTIONS.md` ở thư mục gốc.
+Chạy các lệnh sau từ thư mục chứa `main.py`.
 
-### 4.3 · DPLL SAT
+```sh
+python benchmark/generate_puzzles.py --check
+python -m unittest discover -s benchmark/tests -t . -v
+python benchmark/run.py
+```
 
-| File | Công việc |
-| --- | --- |
-| `griductive/sat.py` | Bổ sung `solve(clauses, num_variables, assumptions=None)`. Cài DPLL, unit propagation, chọn nhánh và đếm thống kê. Trả `SatResult` theo kiểu của mục 4.2. |
+Hai lệnh đầu lần lượt xác minh dữ liệu bằng bộ giải đối chứng và chạy bộ kiểm thử cho mã hóa CNF, DPLL, agent, engine và chương trình thực nghiệm.
 
-### 4.4 · Agent và uniqueness
+Benchmark mặc định chạy 15 bài toán, mỗi bài 3 lần với giới hạn 60 giây mỗi lượt. Bộ dữ liệu gồm 10 màn chuẩn, 2 màn 5×5 để đo tải và 3 ca kiểm tra các tình huống hết bước suy luận, có nhiều nghiệm hoặc có dữ kiện mâu thuẫn.
 
-| File | Công việc |
-| --- | --- |
-| `griductive/agent.py` | Bổ sung `classify()`, `classify_all()` và `next_move()`. Dùng encoder và SAT để suy luận từ `PublicState`. Engine dùng `classify()` để kiểm tra verdict, còn GUI dùng `next_move()` cho Hint và Auto solve. |
-| `griductive/uniqueness.py` | Bổ sung `check_uniqueness(puzzle)` để kiểm tra nghiệm của toàn bộ clue. Blocking clause dùng assignment của biến chính. |
+Để chạy một màn, dùng `python benchmark/run.py --puzzles puzzles/puzzle_3x3_001.json --repeats 1`. Để xuất biểu đồ, cài các gói tùy chọn bằng `python -m pip install -r requirements-dev.txt` trước khi chạy benchmark.
 
-### 4.5 · Bộ puzzle, kiểm thử và benchmark
+| Tệp trong `benchmark/results/<thời điểm>/` | Nội dung                                                                                                                                       |
+| ------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------- |
+| `results.csv`                              | Trạng thái từng lượt, số biến chính và phụ, số mệnh đề CNF, số truy vấn SAT, số lần quyết định, lan truyền và quay lui, cùng số bước suy luận và thời gian chạy. |
+| `traces/*.jsonl`                           | Các bước suy luận được chấp nhận trong từng lần chạy.                                                                                          |
+| `puzzle_checks.csv`                        | Kết quả kiểm tra nghiệm duy nhất đối chiếu với bộ giải độc lập.                                                                                |
+| `run_log.jsonl`, `environment.json`        | Chi tiết lần chạy, lỗi và môi trường thực nghiệm.                                                                                              |
+| `summary.md`                               | Bảng tổng hợp theo màn và kích thước bàn cờ. Khi có Matplotlib, chương trình xuất thêm biểu đồ PNG. |
 
-| Vị trí | Công việc |
-| --- | --- |
-| `puzzles/*.json` | Thêm bộ puzzle schema `1.0.0`, có màn 3×3 và 4×4. Chuẩn bị ca mơ hồ, mâu thuẫn, đếm ở biên và hai region mở rộng theo mục 11. |
-| `benchmark/` | Bổ sung chương trình chạy thực nghiệm headless, bộ kiểm thử và hướng dẫn chạy. Xuất kết quả CSV và trace JSON Lines theo mục 10. Nhóm có thể đặt tên file như `benchmark/run.py` và `benchmark/tests/test_integration.py`. |
-| `requirements-dev.txt`, `pyproject.toml` | Bổ sung khi cần dependency kiểm thử hoặc cấu hình test, lint và format. |
+CSV lưu cả những lượt gặp lỗi hoặc vượt thời gian cho phép. Khi so sánh hai cấu hình, dùng cùng bộ dữ liệu. Cách tính từng chỉ số có trong [hướng dẫn benchmark](benchmark/README.md).
 
-### Cách các module nối với GUI
+## Cấu trúc mã nguồn
 
-- `GameEngine` gọi `agent.classify(public_state, cell_id)` để kiểm tra verdict và chỉ reveal khi có chứng minh. Engine sở hữu dữ liệu ẩn và trả snapshot độc lập. `models.py` của 4.2 là nguồn định nghĩa kiểu và validation.
-- `griductive/gui/team_session.py` dùng `models.load_puzzle`, `agent.next_move` và `regions.get_referenced_cell_ids`. GUI chuyển các kiểu công khai của nhóm thành dữ liệu hiển thị cho web. Hai extension ở chế độ tích hợp là `CORNERS` và `BOUNDARY` theo quy ước.
-- Hợp đồng `MoveResult` chưa chứa ID clue dùng trong chứng minh. Hint ở chế độ tích hợp đánh dấu các clue đã mở để người chơi xem lại. Reveal chỉ đích đến mà agent tìm được.
-- Deduction log ghi từng verdict `ACCEPTED`. `GET /api/trace` trên cùng phiên trình duyệt trả trace JSON Lines theo mục 10. Thống kê GUI tổng hợp từ truy vấn mà agent và engine trả về và chỉ hiển thị các chỉ số có dữ liệu.
+| Đường dẫn                                                                  | Vai trò                                                                                                          |
+| -------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
+| `main.py`                                                                  | Đọc danh sách puzzle, khởi động server và mở trình duyệt.                                                        |
+| `griductive/engine.py`                                                     | Giữ dữ liệu ẩn, cung cấp trạng thái công khai và kiểm tra phán đoán trước khi lật thẻ.                           |
+| `griductive/models.py`, `griductive/regions.py`, `griductive/semantics.py` | Đọc dữ liệu màn chơi theo lược đồ `1.0.0`, xác định các ô thuộc vùng và đánh giá manh mối trên một phép gán đầy đủ. |
+| `griductive/encoder.py`                                                    | Ánh xạ ô sang biến và tự động chuyển manh mối đã mở cùng trạng thái đã biết thành CNF.                           |
+| `griductive/sat.py`                                                        | Cài DPLL với lan truyền đơn vị, chọn nhánh theo thứ tự cố định, quay lui và ghi số liệu cho mỗi truy vấn.        |
+| `griductive/agent.py`                                                      | Kiểm tra hai giả thiết về nhân vật trên trạng thái công khai để tìm kết luận có thể chứng minh ở lượt tiếp theo. |
+| `griductive/uniqueness.py`                                                 | Kiểm tra nghiệm duy nhất trên toàn bộ manh mối bằng mệnh đề chặn phép gán của các biến chính.                    |
+| `griductive/gui/`                                                          | Phục vụ giao diện, điều phối phiên chơi và ghi nhật ký suy luận.                                                 |
+| `puzzles/`, `benchmark/`                                                   | Dữ liệu màn chơi, ca kiểm thử, bộ giải đối chứng và chương trình thực nghiệm.                                    |
+
+Bộ mã hóa xử lý sáu loại manh mối `FACT`, `SAME`, `DIFFERENT`, `EXACTLY`, `AT_LEAST` và `AT_MOST`. Manh mối có thể áp dụng cho một hàng, một cột, các ô kề hoặc một danh sách ô chỉ định. Hai loại vùng mở rộng là `CORNERS` (ô góc) và `BOUNDARY` (ô viền). Nhóm ghi lược đồ dữ liệu và giao diện giữa các mô-đun trong `TEAM_CONVENTIONS.md`.
